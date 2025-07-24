@@ -283,9 +283,10 @@ class HomeScreen extends StatelessWidget {
                   type: 'Received',
                 ),
                 _TransactionItem(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.orange,
-                    child: Icon(Icons.shopping_bag, color: Colors.white),
+                  avatar: _buildTransactionAvatar(
+                    imagePath: 'images/aliexpress.jpg',
+                    fallbackColor: Colors.orange,
+                    fallbackText: 'AE',
                   ),
                   name: 'AliExpress',
                   time: '10:25 AM',
@@ -293,9 +294,10 @@ class HomeScreen extends StatelessWidget {
                   type: 'Transfer',
                 ),
                 _TransactionItem(
-                  avatar: CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    child: Icon(Icons.phone_android, color: Colors.black),
+                  avatar: _buildTransactionAvatar(
+                    imagePath: 'images/mtn.jpg',
+                    fallbackColor: Colors.yellow,
+                    fallbackText: 'MTN',
                   ),
                   name: 'MTN',
                   time: '08:07 AM',
@@ -341,6 +343,49 @@ class HomeScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'MyAccount'),
         ],
+      ),
+    );
+  }
+
+  // Helper method to build transaction avatars with image fallback
+  Widget _buildTransactionAvatar({
+    required String imagePath,
+    required Color fallbackColor,
+    required String fallbackText,
+  }) {
+    return CircleAvatar(
+      backgroundColor: fallbackColor,
+      child: ClipOval(
+        child: Image.asset(
+          imagePath,
+          width: 40,
+          height: 40,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            // Fallback to text if image doesn't exist
+            return Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: fallbackColor,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text(
+                  fallbackText,
+                  style: TextStyle(
+                    color:
+                        fallbackColor == Colors.yellow
+                            ? Colors.black
+                            : Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: fallbackText.length > 2 ? 10 : 16,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
