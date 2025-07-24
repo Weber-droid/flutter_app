@@ -405,7 +405,7 @@ class _MerchantCard extends StatelessWidget {
       child: Row(
         children: [
           // Left: Icon (replace with your asset)
-          Icon(Icons.local_shipping, color: Colors.orange, size: 28),
+          // Icon(Icons.local_shipping, color: Colors.orange, size: 28),
           SizedBox(width: 10),
           // Center: Texts
           Expanded(
@@ -446,15 +446,27 @@ class _MerchantCard extends StatelessWidget {
           // Right: Image (replace with your asset)
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Container(
+            child: Image.asset(
+              'images/person.jpg', // Replace with your actual asset path
               width: 45,
               height: 45,
-              color: Colors.orange.shade200,
-              child: Icon(
-                Icons.person,
-                color: Colors.orange.shade700,
-                size: 25,
-              ),
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                // Fallback if asset doesn't exist
+                return Container(
+                  width: 45,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.orange.shade700,
+                    size: 25,
+                  ),
+                );
+              },
             ),
           ),
         ],
