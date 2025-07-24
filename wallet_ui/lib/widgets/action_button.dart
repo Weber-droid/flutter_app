@@ -30,7 +30,7 @@ class ActionButton extends StatelessWidget {
           child:
               rotate
                   ? Transform.rotate(
-                    angle: 3.14, // 180 degrees
+                    angle: 3.14,
                     child: Icon(
                       icon,
                       color: selected ? Colors.white : Colors.black,

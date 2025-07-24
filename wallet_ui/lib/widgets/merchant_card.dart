@@ -27,7 +27,6 @@ class MerchantCard extends StatelessWidget {
       padding: EdgeInsets.all(12),
       child: Row(
         children: [
-          // Left: Brand Icon
           Container(
             padding: EdgeInsets.all(4),
             decoration: BoxDecoration(
@@ -37,7 +36,6 @@ class MerchantCard extends StatelessWidget {
             child: Icon(Icons.payment, color: Colors.white, size: 12),
           ),
           SizedBox(width: 8),
-          // Center: Texts
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +69,6 @@ class MerchantCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          // Right: Image with fallback
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
@@ -80,7 +77,6 @@ class MerchantCard extends StatelessWidget {
               height: 45,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
-                // Fallback if asset doesn't exist
                 return Container(
                   width: 45,
                   height: 45,

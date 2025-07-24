@@ -14,14 +14,12 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // Top Section (scrolls with content)
             SliverToBoxAdapter(
               child: Container(
                 color: bgColor,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 child: Column(
                   children: [
-                    // Top Row
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -103,7 +101,6 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 16),
-                    // Balance
                     Text(
                       'Current Balance',
                       style: TextStyle(color: Colors.grey[700], fontSize: 16),
@@ -119,7 +116,6 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 8),
                     Icon(Icons.visibility_off, color: Colors.grey[600]),
                     SizedBox(height: 16),
-                    // Action Buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -142,7 +138,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Top Merchants Section
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -186,7 +181,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Merchants Carousel
             SliverToBoxAdapter(
               child: Container(
                 height: 140,
@@ -214,7 +208,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Transaction History Section
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -258,7 +251,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // TODAY Divider
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -276,7 +268,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Transactions List
             SliverList(
               delegate: SliverChildListDelegate([
                 TransactionItem(
@@ -317,7 +308,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      // Bottom Navigation
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -354,7 +344,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Helper method to build transaction avatars with image fallback
   Widget _buildTransactionAvatar({
     required String imagePath,
     required Color fallbackColor,
@@ -369,7 +358,6 @@ class HomeScreen extends StatelessWidget {
           height: 40,
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            // Fallback to text if image doesn't exist
             return Container(
               width: 40,
               height: 40,
