@@ -198,9 +198,21 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                     SizedBox(width: 20),
-                    _MerchantCard(),
+                    _MerchantCard(
+                      brandName: '360Pay',
+                      title: 'Discount Up To 60%',
+                      subtitle: 'Seamless Pay, No Wahala!',
+                      imagePath: 'images/person.jpg',
+                      brandColor: Colors.orange,
+                    ),
                     SizedBox(width: 12),
-                    _MerchantCard(),
+                    _MerchantCard(
+                      brandName: 'InsuGo',
+                      title: 'Insurance Made Easy',
+                      subtitle: 'Quick & Reliable Coverage!',
+                      imagePath: 'images/person.jpg',
+                      brandColor: Colors.orange,
+                    ),
                     SizedBox(width: 20),
                   ],
                 ),
@@ -436,8 +448,22 @@ class _ActionButton extends StatelessWidget {
   }
 }
 
-// Merchant Card Widget (with icon and image)
+// Merchant Card Widget (general and reusable)
 class _MerchantCard extends StatelessWidget {
+  final String brandName;
+  final String title;
+  final String subtitle;
+  final String imagePath;
+  final Color brandColor;
+
+  const _MerchantCard({
+    required this.brandName,
+    required this.title,
+    required this.subtitle,
+    required this.imagePath,
+    this.brandColor = Colors.orange,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -449,9 +475,16 @@ class _MerchantCard extends StatelessWidget {
       padding: EdgeInsets.all(12),
       child: Row(
         children: [
-          // Left: Icon (replace with your asset)
-          // Icon(Icons.local_shipping, color: Colors.orange, size: 28),
-          SizedBox(width: 10),
+          // Left: Brand Icon
+          Container(
+            padding: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: brandColor,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Icon(Icons.payment, color: Colors.white, size: 12),
+          ),
+          SizedBox(width: 8),
           // Center: Texts
           Expanded(
             child: Column(
@@ -461,38 +494,36 @@ class _MerchantCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '360Pay',
+                      brandName,
                       style: TextStyle(
-                        color: Colors.orange,
+                        color: brandColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 13,
                       ),
                     ),
-                    Text(
-                      '®',
-                      style: TextStyle(color: Colors.orange, fontSize: 9),
-                    ),
+                    if (brandName.contains('Pay'))
+                      Text(
+                        '®',
+                        style: TextStyle(color: brandColor, fontSize: 9),
+                      ),
                   ],
                 ),
                 SizedBox(height: 2),
                 Text(
-                  'Discount Up To 60%',
+                  title,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 SizedBox(height: 1),
-                Text(
-                  'Seamless Pay, No Wahala!',
-                  style: TextStyle(fontSize: 11),
-                ),
+                Text(subtitle, style: TextStyle(fontSize: 11)),
               ],
             ),
           ),
           SizedBox(width: 8),
-          // Right: Image (replace with your asset)
+          // Right: Image with fallback
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
-              'images/person.jpg', // Replace with your actual asset path
+              imagePath,
               width: 45,
               height: 45,
               fit: BoxFit.cover,
@@ -502,14 +533,10 @@ class _MerchantCard extends StatelessWidget {
                   width: 45,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.orange.shade200,
+                    color: brandColor.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.orange.shade700,
-                    size: 25,
-                  ),
+                  child: Icon(Icons.person, color: brandColor, size: 25),
                 );
               },
             ),
