@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen()));
-}
+import '../widgets/action_button.dart';
+import '../widgets/merchant_card.dart';
+import '../widgets/transaction_item.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -124,21 +123,19 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _ActionButton(
+                        ActionButton(
                           icon: Icons.currency_exchange,
                           label: 'Send',
                           color: primaryColor,
                           selected: true,
                         ),
-                        _ActionButton(icon: Icons.download, label: 'Request'),
-                        _ActionButton(
-                          icon:
-                              Icons
-                                  .currency_exchange, // Use a rotated icon for Pay Bills
+                        ActionButton(icon: Icons.download, label: 'Request'),
+                        ActionButton(
+                          icon: Icons.currency_exchange,
                           label: 'Pay Bills',
                           rotate: true,
                         ),
-                        _ActionButton(icon: Icons.more_horiz, label: 'More'),
+                        ActionButton(icon: Icons.more_horiz, label: 'More'),
                       ],
                     ),
                   ],
@@ -164,7 +161,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        // Handle tap
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('View all merchants')),
                         );
@@ -198,7 +194,7 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                     SizedBox(width: 20),
-                    _MerchantCard(
+                    MerchantCard(
                       brandName: '360Pay',
                       title: 'Discount Up To 60%',
                       subtitle: 'Seamless Pay, No Wahala!',
@@ -206,7 +202,7 @@ class HomeScreen extends StatelessWidget {
                       brandColor: Colors.orange,
                     ),
                     SizedBox(width: 12),
-                    _MerchantCard(
+                    MerchantCard(
                       brandName: 'InsuGo',
                       title: 'Insurance Made Easy',
                       subtitle: 'Quick & Reliable Coverage!',
@@ -237,7 +233,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        // Handle tap
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('View all transactions')),
                         );
@@ -284,7 +279,7 @@ class HomeScreen extends StatelessWidget {
             // Transactions List
             SliverList(
               delegate: SliverChildListDelegate([
-                _TransactionItem(
+                TransactionItem(
                   avatar: CircleAvatar(
                     child: Text('KW'),
                     backgroundColor: Colors.green,
@@ -294,7 +289,7 @@ class HomeScreen extends StatelessWidget {
                   amount: 'GHS500.00',
                   type: 'Received',
                 ),
-                _TransactionItem(
+                TransactionItem(
                   avatar: _buildTransactionAvatar(
                     imagePath: 'images/aliexpress.jpg',
                     fallbackColor: Colors.orange,
@@ -305,7 +300,7 @@ class HomeScreen extends StatelessWidget {
                   amount: 'GHS27.00',
                   type: 'Transfer',
                 ),
-                _TransactionItem(
+                TransactionItem(
                   avatar: _buildTransactionAvatar(
                     imagePath: 'images/mtn.jpg',
                     fallbackColor: Colors.yellow,
@@ -398,183 +393,6 @@ class HomeScreen extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-// Action Button Widget
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool selected;
-  final bool rotate;
-  final Color color;
-
-  const _ActionButton({
-    required this.icon,
-    required this.label,
-    this.selected = false,
-    this.rotate = false,
-    this.color = Colors.white,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: selected ? color : Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.grey[300]!),
-          ),
-          padding: EdgeInsets.all(16),
-          child:
-              rotate
-                  ? Transform.rotate(
-                    angle: 3.14, // 180 degrees
-                    child: Icon(
-                      icon,
-                      color: selected ? Colors.white : Colors.black,
-                    ),
-                  )
-                  : Icon(icon, color: selected ? Colors.white : Colors.black),
-        ),
-        SizedBox(height: 6),
-        Text(label, style: TextStyle(fontWeight: FontWeight.w500)),
-      ],
-    );
-  }
-}
-
-// Merchant Card Widget (general and reusable)
-class _MerchantCard extends StatelessWidget {
-  final String brandName;
-  final String title;
-  final String subtitle;
-  final String imagePath;
-  final Color brandColor;
-
-  const _MerchantCard({
-    required this.brandName,
-    required this.title,
-    required this.subtitle,
-    required this.imagePath,
-    this.brandColor = Colors.orange,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 260,
-      decoration: BoxDecoration(
-        color: Color(0xFFE9ECF2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: EdgeInsets.all(12),
-      child: Row(
-        children: [
-          // Left: Brand Icon
-          Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: brandColor,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Icon(Icons.payment, color: Colors.white, size: 12),
-          ),
-          SizedBox(width: 8),
-          // Center: Texts
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      brandName,
-                      style: TextStyle(
-                        color: brandColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      ),
-                    ),
-                    if (brandName.contains('Pay'))
-                      Text(
-                        '®',
-                        style: TextStyle(color: brandColor, fontSize: 9),
-                      ),
-                  ],
-                ),
-                SizedBox(height: 2),
-                Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                SizedBox(height: 1),
-                Text(subtitle, style: TextStyle(fontSize: 11)),
-              ],
-            ),
-          ),
-          SizedBox(width: 8),
-          // Right: Image with fallback
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              imagePath,
-              width: 45,
-              height: 45,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                // Fallback if asset doesn't exist
-                return Container(
-                  width: 45,
-                  height: 45,
-                  decoration: BoxDecoration(
-                    color: brandColor.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(Icons.person, color: brandColor, size: 25),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Transaction Item Widget
-class _TransactionItem extends StatelessWidget {
-  final Widget avatar;
-  final String name;
-  final String time;
-  final String amount;
-  final String type;
-
-  const _TransactionItem({
-    required this.avatar,
-    required this.name,
-    required this.time,
-    required this.amount,
-    required this.type,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: avatar,
-      title: Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-      subtitle: Text(time),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(amount, style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(type, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
-        ],
       ),
     );
   }

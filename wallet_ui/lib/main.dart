@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_ui/wallet_screen.dart';
-// import 'package:wallet_ui/wallet_home_screen.dart';
-// import 'package:wallet_ui/wallet_screen.dart';
+import 'screens/wallet_screen.dart';
 
 void main() {
   runApp(const WalletApp());
@@ -21,7 +19,6 @@ class WalletApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFE8EDF5),
       ),
       home: HomeScreen(),
-      // home: const WalletHome(),
     );
   }
 }
